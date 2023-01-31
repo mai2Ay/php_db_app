@@ -1,7 +1,7 @@
 <?php
-  $dsn = 'mysql:dbname=php_db_app;host=localhost;charset=utf8mb4';
-  $user = 'root';
-  $password = '';
+  $dsn = 'mysql:dbname=heroku_dc3293e4bbb8ed4;host=us-cdbr-east-06.cleardb.net;charset=utf8mb4';
+  $user = 'b586bdd43bb703';
+  $password = 'c0a9c61d';
 
   //submitパラメータの値が存在するとき（「登録」ボタンを押したとき）の処理
   if (isset($_POST['submit'])) {
