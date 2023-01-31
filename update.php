@@ -2,6 +2,8 @@
  $dsn = 'mysql:dbname=heroku_dc3293e4bbb8ed4;host=us-cdbr-east-06.cleardb.net;charset=utf8mb4';
  $user = 'b586bdd43bb703';
  $password = 'c0a9c61d';
+ 
+ $password = '';
 
  // submitパラメータの値が存在するとき（「更新」ボタンを押したとき）の処理
  if (isset($_POST['submit'])) {
