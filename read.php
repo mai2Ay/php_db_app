@@ -1,7 +1,7 @@
 <?php
-  $dsn = 'mysql:dbname=heroku_dc3293e4bbb8ed4;host=us-cdbr-east-06.cleardb.net;charset=utf8mb4';
-  $user = 'b586bdd43bb703';
-  $password = 'c0a9c61d';
+  $dsn = 'mysql:dbname=php_db_app;host=localhost;charset=utf8mb4';
+  $user = 'root';
+  $password = '';
 
   try {
       $pdo = new PDO($dsn, $user, $password);
@@ -22,9 +22,11 @@
 
       // orderパラメータの値によってSQL文を変更する
       if ($order === 'desc') {
-          $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY updated_at DESC';
+        //   $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY updated_at DESC';
+        $sql_select = 'SELECT * FROM products WHERE product_code LIKE :keyword OR product_name LIKE :keyword ORDER BY updated_at DESC';
       } else {
-          $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY updated_at ASC';
+        //   $sql_select = 'SELECT * FROM products WHERE product_name LIKE :keyword ORDER BY updated_at ASC';
+        $sql_select = 'SELECT * FROM products WHERE product_code LIKE :keyword OR product_name LIKE :keyword ORDER BY updated_at ASC';
       }
 
       // SQL文を用意する
@@ -89,7 +91,7 @@
                     </a>
                     <form action="read.php" method="get" class="search-form">
                         <input type="hidden" name="order" value="<?= $order ?>">    
-                        <input type="text" class="search-box" placeholder="商品名で検索" name="keyword" value="<?= $keyword ?>">
+                        <input type="text" class="search-box" placeholder="商品コード・商品名で検索" name="keyword" value="<?= $keyword ?>">
                     </form>
                   </div>
                   <a href="create.php" class="btn">商品登録</a>
@@ -98,6 +100,7 @@
                   <tr>
                       <th>商品コード</th>
                       <th>商品名</th>
+                      <th>色</th>
                       <th>単価</th>
                       <th>在庫数</th>
                       <th>仕入先コード</th>
@@ -111,9 +114,10 @@
                         <tr>
                         <td>{$product['product_code']}</td>
                         <td>{$product['product_name']}</td>
+                        <td>{$product['product_color']}</td>                        
                         <td>{$product['price']}</td>
                         <td>{$product['stock_quantity']}</td>
-                        <td>{$product['vendor_code']}</td>
+                        <td>{$product['vendor_code']}</td> 
                         <td><a href='update.php?id={$product['id']}'><img src='images/edit.png' alt='編集' class='edit-icon'></a></td>
                         <td><a href='delete.php?id={$product['id']}'><img src='images/delete.png' alt='削除' class='delete-icon'></a></td>
                         </tr>

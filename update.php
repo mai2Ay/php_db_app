@@ -1,9 +1,7 @@
 <?PHP
- $dsn = 'mysql:dbname=heroku_dc3293e4bbb8ed4;host=us-cdbr-east-06.cleardb.net;charset=utf8mb4';
- $user = 'b586bdd43bb703';
- $password = 'c0a9c61d';
- 
- $password = '';
+  $dsn = 'mysql:dbname=php_db_app;host=localhost;charset=utf8mb4';
+  $user = 'root';
+  $password = '';
 
  // submitパラメータの値が存在するとき（「更新」ボタンを押したとき）の処理
  if (isset($_POST['submit'])) {
@@ -16,6 +14,7 @@
              SET product_code = :product_code,
              product_name = :product_name,
              price = :price,
+             product_color = :product_color,
              stock_quantity = :stock_quantity,
              vendor_code = :vendor_code
              WHERE id = :id
@@ -26,6 +25,7 @@
          $stmt_update->bindValue(':product_code', $_POST['product_code'], PDO::PARAM_INT);
          $stmt_update->bindValue(':product_name', $_POST['product_name'], PDO::PARAM_STR);
          $stmt_update->bindValue(':price', $_POST['price'], PDO::PARAM_INT);
+         $stmt_update->bindValue(':product_color', $_POST['product_color'], PDO::PARAM_STR);
          $stmt_update->bindValue(':stock_quantity', $_POST['stock_quantity'], PDO::PARAM_INT);
          $stmt_update->bindValue(':vendor_code', $_POST['vendor_code'], PDO::PARAM_INT);
          $stmt_update->bindValue(':id', $_GET['id'], PDO::PARAM_INT);
@@ -123,6 +123,9 @@ if (isset($_GET['id'])) {
                      <label for="product_name">商品名</label>
                      <input type="text" name="product_name" value="<?= $product['product_name'] ?>" maxlength="50" required>
  
+                     <label for="product_color">色</label>
+                     <input type="text" name="product_color" value="<?= $product['product_color'] ?>" maxlength="50">
+
                      <label for="price">単価</label>
                      <input type="number" name="price" value="<?= $product['price'] ?>" min="0" max="100000000" required>
  

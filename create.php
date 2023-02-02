@@ -1,7 +1,7 @@
 <?php
-  $dsn = 'mysql:dbname=heroku_dc3293e4bbb8ed4;host=us-cdbr-east-06.cleardb.net;charset=utf8mb4';
-  $user = 'b586bdd43bb703';
-  $password = 'c0a9c61d';
+   $dsn = 'mysql:dbname=php_db_app;host=localhost;charset=utf8mb4';
+   $user = 'root';
+   $password = '';
 
   //submitパラメータの値が存在するとき（「登録」ボタンを押したとき）の処理
   if (isset($_POST['submit'])) {
@@ -10,14 +10,15 @@
 
         // 動的に変わる値をプレースホルダに置き換えたINSERT文をあらかじめ用意する
         $sql_insert = '
-        INSERT INTO products (product_code, product_name, price, stock_quantity, vendor_code)
-        VALUES (:product_code, :product_name, :price, :stock_quantity, :vendor_code)
+        INSERT INTO products (product_code, product_name, product_color, price, stock_quantity, vendor_code)
+        VALUES (:product_code, :product_name, :product_color, :price, :stock_quantity, :vendor_code)
         ';
         $stmt_insert = $pdo->prepare($sql_insert);
 
         // bindValue()メソッドを使って実際の値をプレースホルダにバインドする（割り当てる）
         $stmt_insert->bindValue(':product_code', $_POST['product_code'], PDO::PARAM_INT);
         $stmt_insert->bindValue(':product_name', $_POST['product_name'], PDO::PARAM_STR);
+        $stmt_insert->bindValue(':product_color', $_POST['product_color'], PDO::PARAM_STR);
         $stmt_insert->bindValue(':price', $_POST['price'], PDO::PARAM_INT);
         $stmt_insert->bindValue(':stock_quantity', $_POST['stock_quantity'], PDO::PARAM_INT);
         $stmt_insert->bindValue(':vendor_code', $_POST['vendor_code'], PDO::PARAM_INT);
@@ -89,6 +90,9 @@
 
                     <label for="product_name">商品名</label>
                     <input type="text" name="product_name" maxlength="50" required>
+
+                    <label for="product_color">色</label>
+                    <input type="text" name="product_color" maxlength="50">
 
                     <label for="price">単価</label>
                     <input type="number" name="price" min="0" max="100000000" required>
